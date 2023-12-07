@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="bi-back"></i>
+            <span>Task Manager</span>
+        </a>
+
+        <div class="d-lg-none ms-auto me-4">
+          {% if request.user.is_authenticated %}
+            <div class="d-flex justify-content-center align-items-center bg-info border border-dark-subtle rounded-circle"
+            style="width: 40px; height: 40px; background-image: url('{{ avatar }}'); background-size: cover; background-position: center;">
+            </div>
+         {% endif %}
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="{% url "all-task" %}">Browse Tasks</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="{% url "how-it-works" %}">How it works</a>
+                </li>
+                
+                {% if not request.user.is_authenticated %}
+
+                  <li class="nav-item">
+                    <a class="btn btn-info me-2 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#loginModal" href="#section_4">LogIn</a>
+                  </li>
+
+                  <li class="nav-item">
+                      <a class="btn btn-outline-info" href="{% url "signup" %}">SignUp</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="btn btn-outline-danger me-2 " href="{% url "logout" %}"><i class="bi bi-box-arrow-in-left"></i> log out</a>
+                </li>
+
+                {% endif %}
+                
+                
+            </ul>
+
+            <div class="d-none d-lg-block">
+               {% if request.user.is_authenticated %}
+                {% comment %} <div class="d-flex justify-content-center align-items-center bg-info rounded-circle" style="width: 36px; height: 36px;"> {% endcomment %}
+                  {% comment %} <a href="#top" class="navbar-icon bi-person smoothscroll text-white"></a> {% endcomment %}
+                  {% comment %} <img src="{{avatar}}" alt="" style="width: 100%;"> {% endcomment %}
+                {% comment %} </div> {% endcomment %}
+                <div class="d-flex justify-content-center align-items-center bg-info border border-dark-subtle rounded-circle"
+                 style="width: 40px; height: 40px; background-image: url('{{ avatar }}'); background-size: cover; background-position: center;">
+                </div>
+               {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Welcome back👋</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'login' %}" method="POST">
+              {% csrf_token %}
+                <div class="mb-3">
+                  <div class="input-group">
+                    <div class="input-group-text">@</div>
+                    <input name="username" placeholder="username" type="text" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="input-group">
+                    <div class="input-group-text"><i class="bi bi-key"></i></div>
+                    <input name="password" placeholder="password" type="password" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  </div>
+                </div>
+                <div class="mb-3 d-flex gap-2">
+                  <p><a href="#">Forgot password?</a></p>
+                  <span>or</span>
+                  <p><a href="{% url "signup" %}">create an account</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-dark btn-lg">Login</button>
+                </div>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>

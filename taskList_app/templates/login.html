@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="container">
+      <div class="card mx-auto my-5 " style="width: 32rem">
+        <div class="card-body">
+          <div class="card-title">
+            <h3>LogIn to your account</h3>
+          </div>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <div class="input-group">
+                <div class="input-group-text">@</div>
+                <input name="username" placeholder="username" type="text" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="input-group">
+                <div class="input-group-text"><i class="bi bi-key"></i></div>
+                <input name="password" placeholder="password" type="password" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="mb-3 d-flex gap-2">
+              <p><a href="#">Forgot password?</a></p>
+              <span>or</span>
+              <p><a href="{% url "signup" %}">create an account</a></p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div>
+        <a href="{% url "home" %}"><i class="bi bi-arrow-left"></i> Back to homepage</a>
+      </div>
+    </div>
+{% endblock main %}
